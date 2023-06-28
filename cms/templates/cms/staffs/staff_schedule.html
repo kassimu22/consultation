@@ -1,0 +1,75 @@
+{% extends 'cms/staffs/base.html' %}
+{% block page_title %}
+Schedule Time Slots
+{% endblock page_title %}
+{% block main_content %}
+
+<!-- Main content -->
+<section class="content">
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-md-12">
+                <!-- general form elements -->
+                <div class="card card-primary">
+                    <div class="card-header">
+                        <h3 class="card-title">Add Time Slots</h3>
+                        <div class="form-group col-md-6">
+                            {% if messages %}
+                                {% for message in messages %}
+                                {% if message.tags == 'error' %}
+                                <div class="alert alert-danger" style="margin-top:10px">{{ message }}</div>
+                                {% endif %}
+                                {% if message.tags == 'success' %}
+                                <div class="alert alert-success" style="margin-top:10px">{{ message }}</div>
+                                {% endif %}
+                                {% endfor %}
+                            {% endif %}
+                        </div>
+                    </div>
+                    <!-- /.card-header -->
+                    <!-- form start -->
+                    {% url 'add_slots_save' as action_path %}
+                    {% include 'cms/staffs/form_template.html' with messages=messages form=form action_path=action_path button_text="Save" %}
+                </div>
+                <!-- /.card -->
+            </div>
+        </div>
+    </div>
+</section>
+<!-- /.content -->
+{% endblock main_content %}
+
+{% block custom_js %}
+ <script>
+   $("#slot_date").datepicker({
+            dateFormat: 'yy-mm-dd',
+            minDate:0,
+        });
+     document.addEventListener("DOMContentLoaded", function(){
+        var undergraduateLevel = document.getElementById("under_graduate");
+        var postgraduateLevel = document.getElementById("post_graduate");
+
+        undergraduateLevel.style.display = "none";
+        postgraduateLevel.style.display = "none";
+
+        var selectedLevel = document.getElementById("levels");
+
+        selectedLevel.addEventListener("change", function(){
+        var selectOption = selectedLevel.value;
+
+        if(selectOption === "undergraduate")
+        {
+            undergraduateLevel.style.display = "block";
+            postgraduateLevel.style.display = "none";
+        }else if(selectOption === "postgraduate")
+        {
+            undergraduateLevel.style.display = "none";
+            postgraduateLevel.style.display = "block";
+        }else{
+            undergraduateLevel.style.display = "none";
+            postgraduateLevel.style.display = "none";
+        }
+        })
+        });
+ </script>
+{% endblock custom_js %}

@@ -1,0 +1,47 @@
+{% extends 'cms/admin/base.html' %}
+{% block page_title %}
+Blocks
+{% endblock page_title %}
+
+{% block content %}
+<!-- Main content -->
+<section class="content">
+    <div class="container-fluid">
+
+
+      <div class="row">
+        <div class="col-12">
+          <div class="card card-primary">
+            <div class="card-header">
+              <h3 class="card-title">Blocks Details</h3>
+            </div><br>
+            <!-- /.card-header -->
+            <div class="card-body table-responsive">
+              <table class="table table-bordered table-hover" id="example2">
+                <thead>
+                  <tr>
+                    <th>ID</th>
+                    <th>Block Name</th>
+                    <th>Action</th>
+                  </tr>
+                </thead>
+                <tbody>
+                {% for block in blocks %}
+                  <tr>
+                    <td>{{ block.id }}</td>
+                    <td>{{ block.block_name }}</td>
+                    <td><a href="/edit_block/{{ block.id }}" class="btn btn-success">Edit</a></td>
+                  </tr>
+                {% endfor %}
+                </tbody>
+              </table>
+            </div>
+            <!-- /.card-body -->
+          </div>
+          <!-- /.card -->
+        </div>
+      </div>
+    </div>
+  </section>
+  <!-- /.content -->
+{% endblock content %}

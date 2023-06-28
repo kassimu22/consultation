@@ -1,0 +1,61 @@
+{% extends 'cms/students/base.html' %}
+{% block page_title %}
+Staffs
+{% endblock page_title %}
+
+{% block main_content %}
+ <!-- Main content -->
+ <section class="content">
+    <div class="container-fluid">
+      <div class="row">
+        <div class="col-12">
+          <div class="card card-primary">
+            <div class="card-header">
+              <h3 class="card-title">Available Lectures</h3>
+            </div><br>
+            <!-- /.card-header -->
+            <div class="card-body table-responsive">
+              <table class="table table-bordered table-hover" id="example2">
+                <thead>
+                  <tr>
+                    <th>Lecturer Profile</th>
+                    <th>Lecturer Name</th>
+                    <th>Block/Office Number</th>
+                    <th>Department</th>
+                    <th>Action</th>
+                  </tr>
+                </thead>
+                <tbody>
+                {% for staff in staffs %}
+                  <tr>
+                    <td><img src="{{ staff.admin.profile_pic.url }}" class="img-circle elevation-2" style="width:100px"> </td>
+                    <td>{{ staff.admin.first_name }} {{ staff.admin.last_name }}</td>
+                    <td>{{ staff.office.block.block_name }}/{{ staff.office.office_number }}</td>
+                    <td>{{ staff.department.department_name }}</td>
+                    <td><a href="/add_appointment/{{staff.admin.id}}" class="small-box-footer">Book Now <i class="fas fa-arrow-circle-right"></a></td>
+                  </tr>
+                {% endfor %}
+                </tbody>
+              </table>
+            </div>
+            <!-- /.card-body -->
+          </div>
+          <!-- /.card -->
+        </div>
+      </div>
+
+    </div>
+  </section>
+  <!-- /.content -->
+{% endblock main_content %}
+{% block custom_js %}
+<script>
+  $(document).ready(function(){
+  $("#example2").DataTable({
+    "responsive":true,
+    "autoWidth":false
+  });
+  });
+</script>
+{% endblock custom_js %}
+

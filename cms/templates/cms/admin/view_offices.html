@@ -1,0 +1,49 @@
+{% extends 'cms/admin/base.html' %}
+{% block page_title %}
+Offices
+{% endblock page_title %}
+{% block content %}
+
+<!-- Main content -->
+<section class="content">
+    <div class="container-fluid">
+
+
+      <div class="row">
+        <div class="col-12">
+          <div class="card card-primary">
+            <div class="card-header">
+              <h3 class="card-title">Office Details</h3>
+            </div><br>
+            <!-- /.card-header -->
+            <div class="card-body table-responsive">
+              <table class="table table-bordered table-hover" id="example2">
+                <thead>
+                  <tr>
+                    <th>ID</th>
+                    <th>Block Name</th>
+                    <th>Office No</th>
+                    <th>Action</th>
+                  </tr>
+                </thead>
+                <tbody>
+                {% for office in offices %}
+                  <tr>
+                    <td>{{ forloop.counter }}</td>
+                    <td>{{ office.block.block_name }}</td>
+                    <td>{{ office.office_number }}</td>
+                    <td><a href="/edit_office/{{ office.id }}" class="btn btn-success">Edit</a></td>
+                  </tr>
+                {% endfor %}
+                </tbody>
+              </table>
+            </div>
+            <!-- /.card-body -->
+          </div>
+          <!-- /.card -->
+        </div>
+      </div>
+    </div>
+  </section>
+  <!-- /.content -->
+{% endblock content %}

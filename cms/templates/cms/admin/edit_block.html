@@ -1,0 +1,59 @@
+{% extends 'cms/admin/base.html' %}
+{% block page_title %}
+Edit Block
+{% endblock page_title %}
+{% block content %}
+
+<!-- Main content -->
+<section class="content">
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-md-12">
+                <!-- general form elements -->
+                <div class="card card-primary">
+                    <div class="card-header">
+                        <h3 class="card-title">Edit block</h3>
+                        <div class="form-group col-md-6">
+                            {% if messages %}
+                                {% for message in messages %}
+                                {% if message.tags == 'error' %}
+                                <div class="alert alert-danger">{{ message }}</div>
+                                {% endif %}
+                                {% if message.tags == 'success' %}
+                                <div class="alert alert-success">{{ message }}</div>
+                                {% endif %}
+                                {% endfor %}
+                            {% endif %}
+                        </div>
+                    </div>
+                    <!-- /.card-header -->
+                    <!-- form start -->
+                    <form role="form" action="/edit_block_save" method="post">
+                        {% csrf_token %}
+                        <div class="card-body">
+                            <div class="row">
+                                <div class="form-group col-md-12">
+                                    <label>Block Name</label>
+                                    <input type="hidden" class="form-control" name="block_id" value="{{blocks.id}}">
+                                    <input type="text" class="form-control" name="block_name" placeholder="Enter block name" value="{{blocks.block_name}}">
+                                </div>
+                            </div>
+                            <div class="row float-right">
+                                <div class="form-group">
+                                    <button type="submit" class="btn btn-primary btn-block">Update</button>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- /.card-body -->
+
+                       
+                    </form>
+                </div>
+                <!-- /.card -->
+            </div>
+        </div>
+    </div>
+</section>
+<!-- /.content -->
+  {% endblock content %}
+  

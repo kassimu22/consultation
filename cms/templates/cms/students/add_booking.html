@@ -1,0 +1,107 @@
+{% extends 'cms/students/base.html' %}
+{% block page_title %}
+Book Appointment With:| <label class="label label-info">{{ staff.admin.first_name }} {{ staff.admin.last_name }}</label>
+{% endblock page_title %}
+{% block main_content %}
+
+<!-- Main content -->
+<section class="content">
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-md-12">
+                <!-- general form elements -->
+                <div class="card card-primary">
+                    <div class="card-header">
+                        <h3 class="card-title">New Appointment</h3>
+                        <div class="form-group col-md-6">
+                            {% if messages %}
+                                {% for message in messages %}
+                                {% if message.tags == 'error' %}
+                                <div class="alert alert-danger" style="margin-top:10px">{{ message }}</div>
+                                {% endif %}
+                                {% if message.tags == 'success' %}
+                                <div class="alert alert-success" style="margin-top:10px">{{ message }}</div>
+                                {% endif %}
+                                {% endfor %}
+                            {% endif %}
+                        </div>
+                    </div>
+                    <!-- /.card-header -->
+                    <!-- form start -->
+                    <form role="form" action="/add_booking_save" method="post" autocomplete="off">
+                        {% csrf_token %}
+                        <div class="card-body">
+                            <div class="row">
+                                <input type="hidden" name="staff_id" id="staff_id" value="{{staff.admin.id}}">
+                                <div class="form-group col-md-6">
+                                    <label>Appointment Reason</label>
+                                    <select class="form-control" name="reason" id="reason">
+                                        <option select disabled value="">Select Reason For appointment</option>
+                                        <option value="Final Year Project">Final Year Project</option>
+                                        <option value="Education Consultation">Education Consultation</option>
+                                        <option value="Research">Research</option>
+                                    </select>
+
+                                </div>
+                                <div class="form-group col-md-6">
+                                    <label>Select Appointment Date</label>
+                                    <input type="text" class="form-control" id="booking_date" placeholder="Date" name="booking_date" value="{{todayDate}}" data-toggle="datetimepicker">
+                                </div>
+                                <div id="times" class="form-group col-md-6">
+
+                                </div>
+
+                            </div>
+                        </div>
+                        <!-- /.card-body -->
+
+                        <div class="form-group" style="float:right">
+                            <button type="submit" id="fetch_times" class="btn btn-success btn-group-sm">Make Appointment</button>
+                        </div>
+                    </form>
+                </div>
+                <!-- /.card -->
+            </div>
+        </div>
+    </div>
+</section>
+<!-- /.content -->
+  {% endblock main_content %}
+  {% block custom_js %}
+  <script>
+    $(document).ready(function(){
+        //date picker
+        $( "#booking_date" ).datepicker({
+            dateFormat: 'yy-mm-dd',
+            minDate: 0,
+        });
+        //display time slot on date change
+        $("#booking_date").change(function(){
+           var booking_date = $("#booking_date").val()
+           var staff_id = $("#staff_id").val()
+           $.ajax({
+                url:'{% url "get_time_slots" %}',
+                type:'POST',
+                data:{staff_id:staff_id,booking_date:booking_date},
+           })
+           .done(function(response){
+            var json_data = JSON.parse(response);
+            console.log(json_data)
+                var div_data="<div class='form-group'><label>Available Time Slots : </label><select class='form-control' name='times'>";
+                for(key in json_data)
+                {
+                    div_data+="<option value='"+json_data[key]['time']+"'>"+json_data[key]['time']+"</option>";
+                }
+                div_data+="</select></div>";
+               
+
+                $("#times").html(div_data);
+           })
+           .fail(function(){
+                alert("Error in Fetching time slots")
+            })
+        });
+    });
+  </script>
+  {% endblock custom_js %}
+  

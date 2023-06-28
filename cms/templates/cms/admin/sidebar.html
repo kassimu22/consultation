@@ -1,0 +1,213 @@
+{% load static %}
+<aside class="main-sidebar sidebar-dark-primary elevation-4">
+    <!-- Brand Logo -->
+    <a href="/admin_dashboard" class="brand-link">
+      <!-- <img src="{% static 'dist/img/logo.png' %}" alt="SMS" class="brand-image img-circle elevation-3"
+           style="opacity: .8"> -->
+      <span class="brand-text font-weight-light">CMS</span>
+    </a>
+
+    <!-- Sidebar -->
+    <div class="sidebar">
+      <!-- Sidebar user panel (optional) -->
+      <div class="user-panel mt-3 pb-3 mb-3 d-flex">
+        <div class="image">
+          <img src="{% static 'dist/img/avatar5.png' %}" class="img-circle elevation-2" alt="User Image">
+        </div>
+        <div class="info">
+          <a href="/admin_profile" class="d-block">{{ user.username }}</a>
+        </div>
+      </div>
+
+      <!-- Sidebar Menu -->
+      <nav class="mt-2">
+        <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
+          <!-- Add icons to the links using the .nav-icon class
+               with font-awesome or any other icon font library -->
+          <li class="nav-item">
+            {% url 'admin_dashboard' as admin_dashboard %}
+            <a href="{{admin_dashboard}}" class="nav-link {% if request.path == admin_dashboard %} active {% endif %}">
+              <i class="nav-icon fas fa-tachometer-alt"></i>
+                <p>Dashboard</p>
+            </a>
+          </li>
+          <li class="nav-item has-treeview">
+            <a href="#" class="nav-link">
+              <i class="nav-icon fas fa-edit"></i>
+              <p>
+                Manage Blocks
+                <i class="fas fa-angle-left right"></i>
+              </p>
+            </a>
+            <ul class="nav nav-treeview">
+              <li class="nav-item">
+
+                <a href="/add_block" class="nav-link">
+                  <i class="far fa-circle nav-icon"></i>
+                  <p>
+                    Add Block
+                  </p>
+                </a>
+              </li>
+              <li class="nav-item">
+
+                <a href="/view_blocks" class="nav-link">
+                  <i class="far fa-circle nav-icon"></i>
+                  <p>
+                    View Blocks
+                  </p>
+                </a>
+              </li>
+            </ul>
+          </li>
+          <li class="nav-item has-treeview">
+            <a href="#" class="nav-link">
+              <i class="nav-icon fas fa-edit"></i>
+              <p>
+                Manage Offices
+                <i class="fas fa-angle-left right"></i>
+              </p>
+            </a>
+            <ul class="nav nav-treeview">
+              <li class="nav-item">
+
+                <a href="/add_office " class="nav-link">
+                  <i class="far fa-circle nav-icon"></i>
+                  <p>
+                    Add Office
+                  </p>
+                </a>
+              </li>
+              <li class="nav-item">
+
+                <a href="/view_offices" class="nav-link ">
+                  <i class="far fa-circle nav-icon"></i>
+                  <p>
+                    View Offices
+                  </p>
+                </a>
+              </li>
+            </ul>
+          </li>
+          <li class="nav-item has-treeview">
+            <a href="#" class="nav-link">
+              <i class="nav-icon fas fa-edit"></i>
+              <p>
+                Manage Departments
+                <i class="fas fa-angle-left right"></i>
+              </p>
+            </a>
+            <ul class="nav nav-treeview">
+              <li class="nav-item">
+
+                <a href="/add_department" class="nav-link">
+                  <i class="far fa-circle nav-icon"></i>
+                  <p>
+                    Add Department
+                  </p>
+                </a>
+              </li>
+              <li class="nav-item">
+
+                <a href="/view_departments" class="nav-link ">
+                  <i class="far fa-circle nav-icon"></i>
+                  <p>
+                    View Departments
+                  </p>
+                </a>
+              </li>
+            </ul>
+          </li>
+          <li class="nav-item has-treeview">
+            <a href="#" class="nav-link">
+              <i class="nav-icon fas fa-edit"></i>
+              <p>
+                Manage Courses
+                <i class="fas fa-angle-left right"></i>
+              </p>
+            </a>
+            <ul class="nav nav-treeview">
+              <li class="nav-item">
+
+                <a href="/add_course" class="nav-link">
+                  <i class="far fa-circle nav-icon"></i>
+                  <p>
+                    Add Course
+                  </p>
+                </a>
+              </li>
+              <li class="nav-item">
+
+                <a href="/view_course" class="nav-link ">
+                  <i class="far fa-circle nav-icon"></i>
+                  <p>
+                    View Courses
+                  </p>
+                </a>
+              </li>
+            </ul>
+          </li>
+          <li class="nav-item has-treeview">
+            <a href="#" class="nav-link">
+              <i class="nav-icon fas fa-edit"></i>
+              <p>
+                Manage Staffs
+                <i class="fas fa-angle-left right"></i>
+              </p>
+            </a>
+            <ul class="nav nav-treeview">
+              <li class="nav-item">
+
+                <a href="/add_staff" class="nav-link ">
+                  <i class="far fa-circle nav-icon"></i>
+                  <p>
+                    Add Staff
+                  </p>
+                </a>
+              </li>
+              <li class="nav-item">
+
+                <a href="/view_staff" class="nav-link">
+                  <i class="far fa-circle nav-icon"></i>
+                  <p>
+                    View Staffs
+                  </p>
+                </a>
+              </li>
+            </ul>
+          </li>
+          <li class="nav-item has-treeview">
+            <a href="#" class="nav-link">
+              <i class="nav-icon fas fa-edit"></i>
+              <p>
+                Manage Students
+                <i class="fas fa-angle-left right"></i>
+              </p>
+            </a>
+            <ul class="nav nav-treeview">
+              <li class="nav-item">
+
+                <a href="/add_student" class="nav-link ">
+                  <i class="far fa-circle nav-icon"></i>
+                  <p>
+                    Add Student
+                  </p>
+                </a>
+              </li>
+              <li class="nav-item">
+
+                <a href="/view_student" class="nav-link">
+                  <i class="far fa-circle nav-icon"></i>
+                  <p>
+                    View Students
+                  </p>
+                </a>
+              </li>
+            </ul>
+          </li>
+        </ul>
+      </nav>
+      <!-- /.sidebar-menu -->
+    </div>
+    <!-- /.sidebar -->
+  </aside>

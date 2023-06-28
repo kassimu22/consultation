@@ -1,0 +1,107 @@
+{% extends 'cms/admin/base.html' %}
+{% block page_title %}
+Edit Student
+{% endblock page_title %}
+{% block content %}
+
+<!-- Main content -->
+<section class="content">
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-md-12">
+                <!-- general form elements -->
+                <div class="card card-primary">
+                    <div class="card-header">
+                        <h3 class="card-title">Edit Student</h3>
+                        <a href="{% url 'view_student' %}" class="btn btn-info" style="float: right;"><i class="fa fa-list">View students</i></a>
+                        <div class="form-group col-md-6">
+                            {% if messages %}
+                                {% for message in messages %}
+                                {% if message.tags == 'error' %}
+                                <div class="alert alert-danger" style="margin-top:10px">{{ message }}</div>
+                                {% endif %}
+                                {% if message.tags == 'success' %}
+                                <div class="alert alert-success" style="margin-top:10px">{{ message }}</div>
+                                {% endif %}
+                                {% endfor %}
+                            {% endif %}
+                        </div>
+                    </div>
+                    <!-- /.card-header -->
+                    <!-- form start -->
+                    <form role="form" action="/edit_student_save" method="post">
+                        {% csrf_token %}
+                        <div class="card-body">
+                            <div class="row">
+                                <input type="hidden" class="form-control" name="stud_id" value="{{student.admin.id}}">
+
+                                <div class="form-group col-md-6">
+                                    <label>Email address</label>
+                                    <input type="email" class="form-control" name="email" id="email" placeholder="Enter email" value="{{student.admin.email}}" required>
+                                    <span class="error" id="invalid_email"></span>
+                                </div>
+                                
+                                <div class="form-group col-md-6">
+                                    <label>First Name</label>
+                                    <input type="text" class="form-control" placeholder="First Name" name="first_name" value="{{student.admin.first_name}}" required>
+                                </div>
+                                <div class="form-group col-md-6">
+                                    <label>Last Name</label>
+                                    <input type="text" class="form-control" placeholder="Last Name" name="last_name" value="{{student.admin.last_name}}" required>
+                                </div>
+                                <div class="form-group col-md-6">
+                                    <label>Level</label>
+                                    <select class="form-control" name="level">
+                                        <option value="Undergraduate"{% if student.level == 'Undergraduate' %}
+                                          selected
+                                        {% endif %}>Undergraduate</option>
+                                        <option value="Postgraduate"{% if student.level == 'Postgraduate' %}
+                                          selected
+                                        {% endif %}>Postgraduate</option>
+                                    </select>
+                                </div>
+                                <div class="form-group col-md-6">
+                                    <label>Program</label>
+                                    <input type="text" class="form-control" placeholder="program" name="program" value="{{student.program}}" required>
+                                </div> 
+                                <div class="form-group col-md-6">
+                                    <label>Gender</label>
+                                    <select class="form-control" name="gender">
+                                        <option value="Male"{% if student.gender == 'Male' %} selected {% endif %} >Male</option>
+                                        <option value="Female"{% if student.gender == 'Female' %} selected {% endif %}>Female</option>
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- /.card-body -->
+
+                        <div class="card-footer">
+                            <button type="submit" class="btn btn-primary btn-block">Update</button>
+                        </div>
+                    </form>
+                </div>
+                <!-- /.card -->
+            </div>
+        </div>
+    </div>
+</section>
+<!-- /.content -->
+  {% endblock content %}
+  {% block custom_js %}
+  <script>
+    $(document).ready(function(){
+        $("#email").keyup(function(){
+            var email = $("#email").val();
+            var filter = /^([a-zA-Z0-9_\.\-])+\@(([a-zA-Z0-9\-])+\.)+([a-zA-Z0-9]{2,4})+$/;
+            if (!filter.test(email)) {
+            $("#invalid_email").text(email+" is not a valid email").css("color","red");
+            email.focus;
+            } else {
+                $("#invalid_email").text("");
+            }
+        });
+    });
+
+  </script>
+  {% endblock custom_js %}
+  

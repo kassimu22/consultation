@@ -1,0 +1,59 @@
+{% extends 'cms/staffs/base.html' %}
+{% block page_title %}
+Home
+{% endblock page_title %}
+{% block main_content %}
+    <!-- Main content -->
+    <section class="content">
+      <div class="container-fluid">
+        <div class="row">
+          <div class="col-12">
+            <div class="card card-primary">
+              <div class="card-header">
+                <h3 class="card-title">Appointments</h3>
+              </div><br>
+              <!-- /.card-header -->
+              <div class="card-body table-responsive">
+                <table class="table table-bordered table-hover" id="example2">
+                  <thead>
+                    <tr>
+                      <th>ID</th>
+                      <th>Student</th>
+                      <th>Appointment Date</th>
+                      <th>Time Slot</th>
+                      <th>Action</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                  {% for appointment in appointments %}
+                    <tr>
+                      <td>{{appointment.id}}</td>
+                      <td>{{appointment.student.first_name}} {{appointment.student.last_name}}</td>
+                      <td>{{appointment.appointment_date}}</td>
+                      <td>{{appointment.appointment_time}}</td>                     
+                      <td>
+                        {% if appointment.status == 0 %}
+                        <a href="{% url 'approve_appointment' appointment_id=appointment.id %}" class="btn btn-success btn-sm">Approve</i></a>
+                        <a href="{% url 'reject_appointment' appointment_id=appointment.id %}" class="btn btn-danger btn-sm">Reject</i></a>
+                        {% elif appointment.status == 1 %}
+                        <a href="" class="btn btn-success btn-sm">Accepted</i></a>
+                        {% elif appointment.status == 2 %}
+                        <a href="" class="btn btn-warning btn-sm">Rejected</i></a>
+                        {% else %}
+                        <a href="{% url 'reject_appointment' appointment_id=appointment.id %}" class="btn btn-danger btn-sm"><i class="fa fa-window-close"></i></a>
+                        {% endif %}
+                      </td>
+                    </tr>
+                    {% endfor %}
+                  </tbody>
+                </table>
+              </div>
+              <!-- /.card-body -->
+            </div>
+            <!-- /.card -->
+          </div>
+        </div>
+      </div>
+    </section>
+    <!-- /.content -->
+{% endblock main_content %}

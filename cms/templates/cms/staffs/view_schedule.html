@@ -1,0 +1,57 @@
+{% extends 'cms/staffs/base.html' %}
+{% block page_title %}
+My Shedules details
+{% endblock page_title %}
+
+{% block main_content %}
+<!-- Main content -->
+<section class="content">
+    <div class="container-fluid">
+      <div class="row">
+        <div class="col-12">
+          <div class="card card-primary">
+            <div class="card-header">
+              <h3 class="card-title">Shedules details</h3>
+            </div><br>
+            <!-- /.card-header -->
+            <div class="card-body table-responsive">
+              <table class="table table-bordered table-hover" id="example2">
+                <thead>
+                  <tr>
+                    <th>ID</th>
+                    <th>Shedule Date</th>
+                    <th>Shedule Time</th>
+                    <th>Education level</th>
+                    <th>Status</th>
+                  </tr>
+                </thead>
+                <tbody>
+                {% for slot in time_slots %}
+                  <tr>
+                    <td>{{forloop.counter}}</td>
+                    <td>{{slot.slot_date}} </td>
+                    <td>{{slot.time}} </td>
+                    <td>{{slot.education_level}}</td>                  
+                    <td>
+                        {% if slot.status == 1  %}
+                            <span class="badge bg-success"><i class="fa fa-check"></i> Booked</span>
+                        {% else %}
+                            <span class="badge bg-warning">Not booked</span>
+                        {% endif %}   
+                     
+                    </td>
+                  </tr>
+                  {% endfor %}
+                </tbody>
+              </table>
+            </div>
+            <!-- /.card-body -->
+          </div>
+          <!-- /.card -->
+        </div>
+      </div>
+    </div>
+  </section>
+  <!-- /.content -->
+</section>
+{% endblock main_content %}
